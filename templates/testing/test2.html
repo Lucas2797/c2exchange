@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1 id="toma">ok</h1>
+    <div id="here"></div>
+    <div id="here2">ok</div>
+
+    <div class="here3">ALOOW</div>
+    <div class="here3">ALOOW</div>
+
+    <div id="test"></div>
+
+
+    <script>
+
+        var v10 = document.getElementById('test')
+        v10.style.borderStyle = 'dashed'
+        let inp = document.createElement('input')
+        let tex = document.createElement('h2')
+        tex.innerHTML = 'ALOOW'
+        inp.type = 'checkbox'
+
+        v10.appendChild(inp)
+        v10.appendChild(tex)
+        inp.addEventListener('change', () => console.log('ok'))
+
+
+
+
+
+
+
+
+
+
+
+        function one() {
+            var v1 = document.getElementsByClassName('here3')
+            console.log(v1)
+            for (let o of v1) {
+                console.log(o)
+
+            }
+        }
+
+
+
+
+
+
+
+
+        function two() {
+            var a = 0
+            function up(b) {
+                a += 1
+                console.log(a)
+                b.innerHTML = a
+                return a
+            }
+
+            function setting() {
+                var d = document.getElementById('here2')
+                d.style.borderStyle = 'dashed'
+                var b = document.createElement('button')
+                b.addEventListener("click", function () { return up(b) })
+                d.appendChild(b)
+            }
+        }
+
+
+
+
+
+
+
+
+
+        function three() {
+
+            var obj1 = {
+                'one': {
+                    'name': 'lucas',
+                    'idade': 23
+                },
+                'two': {
+                    'name': 'caco',
+                    'idade': 30
+                },
+                'three': {
+                    'name': 'tati',
+                    'idade': 29
+                },
+                'four': {
+                    'name': 'francesco',
+                    'idade': 1
+                }
+            }
+
+            var local = document.getElementById('here')
+            var people = document.createElement('h2')
+            var query_param = ''
+
+
+
+            // ESSA PORRA DE FUNÇÃO DEVERIA RETORNAR UMA LISTA AI DARIA CERTO//
+            var lista = Object.values(obj1)
+
+
+            function Test1() {
+                var a = 2
+                return a
+            }
+
+            function Test2() {
+
+                console.log(Test1())
+            }
+
+
+            Test1()
+            Test2()
+        }
+    </script>
+
+</body>
+
+</html>

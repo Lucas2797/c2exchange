@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <div class="filtering">
+        <form action="" id="form"></form>
+    </div>
+
+
+    <form action="." method="POST">
+        {% csrf_token %}
+    </form>
+
+
+
+    <div class="table-wrapper">
+        <table class="fl-table" id="table">
+        </table>
+    </div>
+
+    <div id=" ok "></div>
+    <table id="table2"></table>
+    <script>
+        function getData(data) {
+            return data
+        }
+
+        fetch("{% url 'json2' %}").then(response => console.log(response.json()))
+
+    </script>
+</body>
+
+</html>

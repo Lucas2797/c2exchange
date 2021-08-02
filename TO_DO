@@ -1,0 +1,109 @@
+SETTAR NAS VIEWS DO HOME VIEW O TAGSERIALIZER E O INVESTIMENT SERIALIZER PRA FAZER TUDO EM UM POST SO (O COINSERIALIZER JA FUNCIONA)
+
+O post request em PostForm deve criar uma Coin, junto a uma Tags pra depois criar o Investiment
+
+
+
+
+
+
+organizar o codigo do tabling_js
+
+SETTAR O POST PRA CRIAR TAMBEM UMA COIN(model) COM TODAS AS INFORMAÇOES da mesma
+
+
+                             
+                                    METODOS DE STORAGEM
+
+                                    Rest api full storage full server-side
+                            receber todos os dados do get no database
+                            salvar todos os dados e recriar periodicamente
+                            retornar a partir de python objects no database
+
+
+                                    Rest api Semi storage full server-side
+                            receber todos os dados do get na view
+                            fazer o tratamento na view 
+                            retornar os querys em json format ou direto python object
+                            storar apenas as cryptos de interesse dos usuarios
+                            tirar proveito de campos de analise(price, volume)
+
+
+                                    Rest api semi storage semi server-side
+                            receber todos os dados na get da view
+                            storar em um arquivo json periodicamente recriado
+                            utilizar do back-end somente para servir os HTML/JS e json
+                            tratar os querys via JS
+                            storar apenas as cryptos de interesse dos usuarios
+                            tirar proveito de campos de analise(price, volume)
+
+
+BASICAMENTE O QUE MUDA E Q NA PRIMEIRA E O JEITO BASICO E NAS DUAS SEGUINTES
+E NECESSARIO DECIDIR SE TRATAR O DADO (SELECIONAR ORDERS FILTERS, ATE COM
+BASE NA INFORMAÇÃO DAS INFORMAÇÕES ANTERIORES) VAI SER MELHOR VIA VIEWS E TROCA DE URLS
+OU DIRETAMENTE COM JAVASCRIPT(REACT) VIA CLIENT-SERVER
+
+
+
+
+
+
+
+MODELS
+    PROVAVELMENTE STORAR SO AS CRYPTOS DE INTERESSE DOS USUARIOS
+    TIRAR VANTAGEM DE CAMPOS MAIS NECESSARIOS PARA COMPARAÇÃO TIPO -> PRICE, VOLUME
+
+
+DECIDIR COOM VAI ESTORAR O DATA RESGATADO DA COINMARKET APLICAR
+    (METODOS DE STORAGEM)
+
+
+PROFILES
+    ADICIONAR BOTAO DE ADD COIN AO PROFILE
+    LINKAR COINS POR INVESTIMENTO OU INTERESSE
+
+
+FILTERING
+    USUARIO DEFINE O NUMERO DE COINS POR PAGINA
+    ATIVAR O SEARCHING COM TRIGRAM (SE POSSIVEL DINAMICO SE NÃO DE BOA)
+    TERMINAR DE FAZER O TEST NO test.html PARA APLICAR O SORT COM BASE NA PALAVRA CLICADA NA PRIMEIRA LINHA
+
+
+
+PUSH NOTIFICATIONS
+    adicionar atualização por entrada de tag (CONTRATO INTELIGENTE)
+
+
+
+
+
+
+
+
+:::::>>>>>>>>>>>>>>>>>>>>>DESENVOLVER UMA PLATAFORMA QUE SEJA CAPAZ DE ENSINAR SOBRE CADA ELEMENTO E OQ ELES AFETAM NO GRAFICO<<<<<<<<<<<<<<<::::::::::
+
+
+
+
+
+_______________>DONE<________________
+
+
+
+Linkar as infos a serem displayadas com os inputs do top-form
+
+ADICIONAR O data['platform'] A LISTA
+
+acertar o tabling_js para atualizar sem fechar as que ja estão (await)
+d
+
+DESCOBRIR PORQUE O FETCH DO ADD EVENT LISTENER DO POST DE CADA COIN NAO TA FAZENDO NADA
+                  
+
+CONSEGUINDO DAR O POST EM CADA FORMULARIO, AGORA APLICAR PARA MANDAR AS INFORMAÇOES DA MOEDA E RECEBER NO SERIALIZER DA VIEWS
+
+
+settar o postgres num server no windows para buscar na 192 do linux
+
+
+estou criando um input hidden e passando o csrf por ele
