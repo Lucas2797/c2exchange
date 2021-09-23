@@ -21,6 +21,10 @@ class Coin(models.Model):
     market_cap = models.FloatField(null=True)
 
     
+    def __str__(self):
+        return '{}'.format(self.name)
+
+
 
 
 class Tag(models.Model):

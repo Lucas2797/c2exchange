@@ -4,6 +4,7 @@
 
 
 .rwd-table {
+  background-color: white;
   margin: auto;
   min-width: 300px;
   max-width: 100%;
@@ -139,6 +140,7 @@ h3:after {
   -webkit-animation: leftRight 2s linear infinite reverse;
   animation: leftRight 2s linear infinite reverse;
 }
+
 @-webkit-keyframes leftRight {
   0%    { -webkit-transform: translateX(0)}
   25%   { -webkit-transform: translateX(-10px)}

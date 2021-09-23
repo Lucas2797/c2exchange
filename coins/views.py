@@ -1,50 +1,56 @@
 from coins.models import Coin
 from django.shortcuts import get_object_or_404, redirect, render
-from rest_framework import views
+from rest_framework import views, permissions
 from rest_framework.response import Response
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 import json
 from pprint import pprint
 from .serializers import CoinSerializer, TagSerializer
-from accounts.models import Profile, Investiments
+from accounts.models import Profile, Investiment
+from accounts.serializers import InvestimentSerializer
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
-from django.contrib.auth import get_user_model
 
 
-
-@csrf_exempt
-def test_view(request):
-    if request.method == 'POST':
-        print(request.data)
-        return redirect('/coins/home')
-    else:
-        return render(request, 'test.html')
 
 
 
 class HomeView(views.APIView):
     template_name = 'home.html'
-    
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+
+
     def get(self, request, *args, **kwargs):
         return render (request, self.template_name)
 
 
     def post(self, request):
-
-        seri = CoinSerializer(data=request.data)
-        if seri.is_valid():
-            seri.save()
-        tags = request.data['tags']
-
-        # AQUII## 
-        for t in tags:
-            seri2 = TagSerializer(data=t)
-        if seri2.is_valid():
-            seri2.save()
-
-        return redirect('/coins/home')
+        dict_coin = request.data.update(request.data['quote']['USD'])
+        seri_coin = CoinSerializer(data=request.data)
+        print(request.data)
+        if seri_coin.is_valid():
+            coin_obj = seri_coin.save()
+            tags = request.data['tags']
+            print(tags)
+            dict_invest = {'one':request.user.profile.id, 'coin':coin_obj.pk, 'payd':request.data['payd'], 'ammount':request.data['ammount']}
+            print(dict_invest)
+            seri_invest = InvestimentSerializer(data=dict_invest)
+            if seri_invest.is_valid():
+                seri_invest.save()
+            else:
+                print(seri_invest.errors)
+            for t in tags:
+                dict_tag = {'coin':[coin_obj.pk], 'name':t}
+                seri_tag = TagSerializer(data=dict_tag)
+                if seri_tag.is_valid():
+                    tag_obj = seri_tag.save()
+                    tag_obj.coin.add(coin_obj)
+                else:
+                    print(seri_tag.errors)
+        else:
+            print(seri_coin.errors)
+        return redirect('home')
 
 def json_view(request):
     return Response(template_name='data.json', content_type='application/json')
@@ -71,4 +77,10 @@ class RestartList(views.APIView):
         except (ConnectionError, Timeout, TooManyRedirects) as e:
             pprint(e)
 
+
+class TestView(views.APIView):
+    permissions = [permissions.IsAuthenticated]
+
+    def get (self, request):
+        return Response({"nome": "lucas"})
 

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+<h2>{{p1}}</h2>
+<div class="table-wrapper">
+    <table class="rwd-table" id="table">
+        <tr>
+            <th>Usuario</th>
+            <th>Moeda</th>
+            <th>Quant. dollar</th>
+            <th>Preco Pago</th>
+            <th>Preco Atual</th>
+            <th>Lucro</th>
+            <th>Vendido</th>
+        </tr>
+        {% for i in query %}
+        <tr>
+            <td>{{i.wallet.one}}</td>
+            <td>{{i.coin}}</td>
+            <td>{{i.ammount}}</td>
+            <td>{{i.payd}}</td>
+            <td>{{i.coin.price}}</td>
+            <td>{{i.profit}}({{i.profit_percent|slice:":3"}}%)</td>
+            <td>{{i.sold}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+
+
+{% endblock %}

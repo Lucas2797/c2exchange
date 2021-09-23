@@ -1,8 +1,32 @@
+break even point
+    calcula o total incluindo todas as compras naquela crypto e as ja vendidas
+    https://www.youtube.com/watch?v=E8woRnHoOjA
+
+
+    Invested ==> total gasto
+    Selled ==> quantidade da moeda vendida * valor_vendido
+    remaining_coins ==> O quanto possui da moeda apos o valor_vendido do Selled || ou || 
+
+    BreakEven = (Invested - Selled)/remaining_coins
+ 
+
+
+
+
+ADICIONAR NA  TABELA DA PROFILE
+    porcentagem de crescimento da moeda no momento da compra ate o ultimo recebido
+
+ADICIONAR O CAMPO METODO DE COMPRA POIS SÓ ASSIM VAI DA PRA SABER O LUCRO
+    não se compra BTC e sim BRL/BTC ou USDT/BTC
+
+
+
+
 SETTAR NAS VIEWS DO HOME VIEW O TAGSERIALIZER E O INVESTIMENT SERIALIZER PRA FAZER TUDO EM UM POST SO (O COINSERIALIZER JA FUNCIONA)
 
 O post request em PostForm deve criar uma Coin, junto a uma Tags pra depois criar o Investiment
 
-
+---
 
 
 
@@ -88,6 +112,9 @@ PUSH NOTIFICATIONS
 
 _______________>DONE<________________
 
+ajeitar o add_obj (primeira coluna da tabela)
+
+
 
 
 Linkar as infos a serem displayadas com os inputs do top-form
@@ -107,3 +134,8 @@ settar o postgres num server no windows para buscar na 192 do linux
 
 
 estou criando um input hidden e passando o csrf por ele
+
+
+verificar porque ta acontecendo tudo duplicado
+    ta fazendo o CreatingTable duas vezes
+    --> Quando importa no JS ele roda o codigo automaticamente <--

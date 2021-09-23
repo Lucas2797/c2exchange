@@ -28,20 +28,18 @@ class LoginForm(forms.Form):
                 raise ValidationError('usuario desativado')
 
 
-    class RegisterForm(forms.ModelForm):
-        password = forms.CharField(widget=forms.PasswordInput)
-        confirm_password = forms.CharField(widget=forms.PasswordInput)
-
-        class Meta:
-            Model = User
-            fields = ('username', 'password', 'confirm_password')
-
-        def clean(self, *args, **kwargs):
-            username = self.cleaned_data.get('username')
-            password = self.cleanned_data.get('password')
-            confirm_password = self.cleaned_data.get('confirm_password')
-            user = User.objects.filter(username=username)
-            if user.exists():
-                raise ValidationError('usuário ja existe')
-            if not password == confirm_password:
-                raise ValidationError('password nao confere')
+class RegisterForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput)
+    confirm_password = forms.CharField(widget=forms.PasswordInput)
+    class Meta:
+        Model = User
+        fields = ('username', 'password', 'confirm_password')
+    def clean(self, *args, **kwargs):
+        username = self.cleaned_data.get('username')
+        password = self.cleanned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        user = User.objects.filter(username=username)
+        if user.exists():
+            raise ValidationError('usuário ja existe')
+        if not password == confirm_password:
+            raise ValidationError('password nao confere')

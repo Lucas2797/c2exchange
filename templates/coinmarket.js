@@ -1,29 +1,26 @@
-export function Test() {
-    console.log('ok')
-}
 
 
 
 export function CoinObject(obj) {
     var new_obj = {
-        'cmc_rank': obj['cmc_rank'],
-        'name': obj['name'],
-        'symbol': obj['symbol'],
-        'price': obj['quote']['USD']['price'].toFixed(2),
-        'volume_24h': obj['quote']['USD']['volume_24h'],
-        'last_updated': obj['quote']['USD']['last_updated'],
-        'num_market_pairs': obj['num_market_pairs'],
-        'percent_change_1h': obj['quote']['USD']['percent_change_1h'],
+        'Rank': obj['cmc_rank'],
+        'Nome': obj['name'],
+        'Simbolo': obj['symbol'],
+        'Preço': obj['quote']['USD']['price'].toLocaleString("pt-BR"),
+        'Volume 24h': obj['quote']['USD']['volume_24h'].toLocaleString("pt-BR"),
+        'hor. Update': obj['quote']['USD']['last_updated'],
+        'Market Pairs': obj['num_market_pairs'],
+        '% 1Hora': obj['quote']['USD']['percent_change_1h'] + "%",
         'platform': '',
-        'max_supply': obj['max_supply'],
-        'circulating_supply': obj['circulating_supply'],
-        'total_supply': obj['total_supply'],
-        'last_updated': obj['last_updated'],
-        'percent_change_24h': obj['quote']['USD']['percent_change_24h'],
-        'percent_change_7d': obj['quote']['USD']['percent_change_7d'],
-        'market_cap': obj['quote']['USD']['market_cap'],
+        'Máximo': obj['max_supply'],
+        'No Mercado': obj['circulating_supply'],
+        'Existentes': obj['total_supply'],
+        'hor. Update2': obj['last_updated'],
+        '% 1Dia': obj['quote']['USD']['percent_change_24h'],
+        '% 1Semana': obj['quote']['USD']['percent_change_7d'],
+        'Capital': obj['quote']['USD']['market_cap'],
         'slug': obj['slug'],
-        'tags': obj['tags'],
+        'Tags': obj['tags'],
     };
     // var value;
     // Object.entries(new_obj).forEach((key, value) => {
@@ -33,11 +30,15 @@ export function CoinObject(obj) {
     // })
 
     if (obj.platform == null) {
-        new_obj.platform = 'none'
+        new_obj.platform = ''
     }
     else {
         new_obj.platform = obj.platform.symbol
     }
 
     return new_obj
+}
+
+function currencyFormat(num, dec = 2) {
+    return '$' + num.toFixed(dec).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
 }

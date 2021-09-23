@@ -1,16 +1,19 @@
 from django.contrib import admin
-from . models import Investiments, Profile
+from . models import Investiment, Profile, Wallet
 
 
 
 class ProfileConfig(admin.ModelAdmin):
     list_display = ('user', 'created_at')
 
+class WalletConfig(admin.ModelAdmin):
+    list_display = ('one',)
 
-class InvestimentsConfig(admin.ModelAdmin):
-    list_display = ('one', 'coin', 'ammount', 'price', 'time', 'sold')
+class InvestimentConfig(admin.ModelAdmin):
+    list_display = ('wallet', 'coin', 'ammount', 'payd', 'time', 'sold')
 
 
 
 admin.site.register(Profile, ProfileConfig),
-admin.site.register(Investiments, InvestimentsConfig),
+admin.site.register(Investiment, InvestimentConfig),
+admin.site.register(Wallet, WalletConfig),
