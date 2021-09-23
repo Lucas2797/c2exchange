@@ -1,0 +1,311 @@
+============= i-010341dedc66beea7 ==============
+----------------------------------------
+/var/log/eb-engine.log
+----------------------------------------
+2021/09/23 20:05:32.304849 [INFO] Checking if logs need forced rotation
+2021/09/23 20:05:32.304863 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:sa-east-1:371192799989:stack/awseb-e-j2ehymtnf6-stack/63622dd0-1c9b-11ec-8ea0-0ad48afa410a -r AWSEBAutoScalingGroup --region sa-east-1
+2021/09/23 20:05:32.903450 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:sa-east-1:371192799989:stack/awseb-e-j2ehymtnf6-stack/63622dd0-1c9b-11ec-8ea0-0ad48afa410a -r AWSEBBeanstalkMetadata --region sa-east-1
+2021/09/23 20:05:33.385200 [INFO] Generating rsyslog config from Procfile
+2021/09/23 20:05:33.386903 [INFO] Running command /bin/sh -c systemctl restart rsyslog.service
+2021/09/23 20:05:33.406403 [INFO] Executing instruction: PostBuildEbExtension
+2021/09/23 20:05:33.406424 [INFO] Starting executing the config set Infra-EmbeddedPostBuild.
+2021/09/23 20:05:33.406443 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-init -s arn:aws:cloudformation:sa-east-1:371192799989:stack/awseb-e-j2ehymtnf6-stack/63622dd0-1c9b-11ec-8ea0-0ad48afa410a -r AWSEBAutoScalingGroup --region sa-east-1 --configsets Infra-EmbeddedPostBuild
+2021/09/23 20:05:33.775589 [INFO] Finished executing the config set Infra-EmbeddedPostBuild.
+
+2021/09/23 20:05:33.775619 [INFO] Executing instruction: CleanEbExtensions
+2021/09/23 20:05:33.775668 [INFO] Cleaned ebextensions subdirectories from app staging directory.
+2021/09/23 20:05:33.775674 [INFO] Executing instruction: RunAppDeployPreDeployHooks
+2021/09/23 20:05:33.775685 [INFO] The dir .platform/hooks/predeploy/ does not exist in the application. Skipping this step...
+2021/09/23 20:05:33.775690 [INFO] Executing instruction: stop X-Ray
+2021/09/23 20:05:33.775695 [INFO] stop X-Ray ...
+2021/09/23 20:05:33.775709 [INFO] Running command /bin/sh -c systemctl show -p PartOf xray.service
+2021/09/23 20:05:33.782995 [WARN] stopProcess Warning: process xray is not registered 
+2021/09/23 20:05:33.783016 [INFO] Running command /bin/sh -c systemctl stop xray.service
+2021/09/23 20:05:33.792034 [INFO] Executing instruction: stop proxy
+2021/09/23 20:05:33.792058 [INFO] Running command /bin/sh -c systemctl show -p PartOf httpd.service
+2021/09/23 20:05:33.798075 [WARN] deregisterProcess Warning: process httpd is not registered, skipping...
+
+2021/09/23 20:05:33.798096 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/09/23 20:05:33.802984 [INFO] Running command /bin/sh -c systemctl is-active nginx.service
+2021/09/23 20:05:33.806599 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/09/23 20:05:33.810983 [INFO] Running command /bin/sh -c systemctl stop nginx.service
+2021/09/23 20:05:38.857175 [INFO] Running command /bin/sh -c systemctl disable nginx.service
+2021/09/23 20:05:38.956366 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/09/23 20:05:39.071126 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/09/23 20:05:39.075783 [INFO] Executing instruction: FlipApplication
+2021/09/23 20:05:39.075809 [INFO] Fetching environment variables...
+2021/09/23 20:05:39.075998 [INFO] Purge old process...
+2021/09/23 20:05:39.076018 [INFO] Running command /bin/sh -c systemctl stop eb-app.target
+2021/09/23 20:05:39.080859 [INFO] Running command /bin/sh -c systemctl show -p ConsistsOf eb-app.target | cut -d= -f2
+2021/09/23 20:05:39.086138 [INFO] web.service
+
+2021/09/23 20:05:39.086157 [INFO] Running command /bin/sh -c systemctl show -p PartOf web.service
+2021/09/23 20:05:39.090736 [INFO] Running command /bin/sh -c systemctl is-active web.service
+2021/09/23 20:05:39.094355 [INFO] Running command /bin/sh -c systemctl disable web.service
+2021/09/23 20:05:39.207212 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/09/23 20:05:39.310236 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/09/23 20:05:39.321520 [INFO] Register application processes...
+2021/09/23 20:05:39.321536 [INFO] Registering the proc: web
+
+2021/09/23 20:05:39.321571 [INFO] Running command /bin/sh -c systemctl show -p PartOf web.service
+2021/09/23 20:05:39.330956 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/09/23 20:05:39.437308 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/09/23 20:05:39.442049 [INFO] Running command /bin/sh -c systemctl is-enabled eb-app.target
+2021/09/23 20:05:39.446072 [INFO] Running command /bin/sh -c systemctl enable eb-app.target
+2021/09/23 20:05:39.550961 [INFO] Running command /bin/sh -c systemctl start eb-app.target
+2021/09/23 20:05:39.556513 [INFO] Running command /bin/sh -c systemctl enable web.service
+2021/09/23 20:05:39.662699 [INFO] Running command /bin/sh -c systemctl show -p PartOf web.service
+2021/09/23 20:05:39.668270 [INFO] Running command /bin/sh -c systemctl is-active web.service
+2021/09/23 20:05:39.671950 [INFO] Running command /bin/sh -c systemctl start web.service
+2021/09/23 20:05:39.689964 [INFO] Executing instruction: start X-Ray
+2021/09/23 20:05:39.689981 [INFO] X-Ray is not enabled.
+2021/09/23 20:05:39.689987 [INFO] Executing instruction: start proxy with new configuration
+2021/09/23 20:05:39.690008 [INFO] Running command /bin/sh -c /usr/sbin/nginx -t -c /var/proxy/staging/nginx/nginx.conf
+2021/09/23 20:05:39.707603 [INFO] Running command /bin/sh -c cp -rp /var/proxy/staging/nginx/* /etc/nginx
+2021/09/23 20:05:39.715697 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/09/23 20:05:39.729416 [INFO] Running command /bin/sh -c systemctl daemon-reload
+2021/09/23 20:05:39.865773 [INFO] Running command /bin/sh -c systemctl reset-failed
+2021/09/23 20:05:39.875373 [INFO] Running command /bin/sh -c systemctl show -p PartOf nginx.service
+2021/09/23 20:05:39.885554 [INFO] Running command /bin/sh -c systemctl is-active nginx.service
+2021/09/23 20:05:39.893931 [INFO] Running command /bin/sh -c systemctl start nginx.service
+2021/09/23 20:05:39.974170 [INFO] Executing instruction: configureSqsd
+2021/09/23 20:05:39.974188 [INFO] This is a web server environment instance, skip configure sqsd daemon ...
+2021/09/23 20:05:39.974194 [INFO] Executing instruction: startSqsd
+2021/09/23 20:05:39.974198 [INFO] This is a web server environment instance, skip start sqsd daemon ...
+2021/09/23 20:05:39.974203 [INFO] Executing instruction: Track pids in healthd
+2021/09/23 20:05:39.974208 [INFO] This is an enhanced health env...
+2021/09/23 20:05:39.974224 [INFO] Running command /bin/sh -c systemctl show -p ConsistsOf aws-eb.target | cut -d= -f2
+2021/09/23 20:05:39.986341 [INFO] healthd.service cfn-hup.service nginx.service
+
+2021/09/23 20:05:39.986367 [INFO] Running command /bin/sh -c systemctl show -p ConsistsOf eb-app.target | cut -d= -f2
+2021/09/23 20:05:39.998214 [INFO] web.service
+
+2021/09/23 20:05:39.998386 [INFO] Executing instruction: RunAppDeployPostDeployHooks
+2021/09/23 20:05:39.998402 [INFO] The dir .platform/hooks/postdeploy/ does not exist in the application. Skipping this step...
+2021/09/23 20:05:39.998407 [INFO] Executing cleanup logic
+2021/09/23 20:05:39.998510 [INFO] CommandService Response: {"status":"SUCCESS","api_version":"1.0","results":[{"status":"SUCCESS","msg":"Engine execution has succeeded.","returncode":0,"events":[{"msg":"Instance deployment successfully generated a 'Procfile'.","timestamp":1632427531,"severity":"INFO"},{"msg":"Instance deployment completed successfully.","timestamp":1632427539,"severity":"INFO"}]}]}
+
+2021/09/23 20:05:39.999665 [INFO] Platform Engine finished execution on command: app-deploy
+
+2021/09/23 20:07:24.988321 [INFO] Starting...
+2021/09/23 20:07:24.988378 [INFO] Starting EBPlatform-PlatformEngine
+2021/09/23 20:07:24.988398 [INFO] reading event message file
+2021/09/23 20:07:24.988516 [INFO] no eb envtier info file found, skip loading env tier info.
+2021/09/23 20:07:24.988583 [INFO] Engine received EB command cfn-hup-exec
+
+2021/09/23 20:07:25.077921 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:sa-east-1:371192799989:stack/awseb-e-j2ehymtnf6-stack/63622dd0-1c9b-11ec-8ea0-0ad48afa410a -r AWSEBAutoScalingGroup --region sa-east-1
+2021/09/23 20:07:25.403396 [INFO] Running command /bin/sh -c /opt/aws/bin/cfn-get-metadata -s arn:aws:cloudformation:sa-east-1:371192799989:stack/awseb-e-j2ehymtnf6-stack/63622dd0-1c9b-11ec-8ea0-0ad48afa410a -r AWSEBBeanstalkMetadata --region sa-east-1
+2021/09/23 20:07:25.714061 [INFO] checking whether command tail-log is applicable to this instance...
+2021/09/23 20:07:25.714077 [INFO] this command is applicable to the instance, thus instance should execute command
+2021/09/23 20:07:25.714082 [INFO] Engine command: (tail-log)
+
+2021/09/23 20:07:25.714139 [INFO] Executing instruction: GetTailLogs
+2021/09/23 20:07:25.714145 [INFO] Tail Logs...
+2021/09/23 20:07:25.714386 [INFO] Running command /bin/sh -c tail -n 100 /var/log/eb-engine.log
+
+
+----------------------------------------
+/var/log/web.stdout.log
+----------------------------------------
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+Sep 23 20:05:41 ip-172-31-15-79 web: ModuleNotFoundError: No module named 'application'
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11379] [INFO] Worker exiting (pid: 11379)
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11373] [INFO] Shutting down: Master
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11373] [INFO] Reason: Worker failed to boot.
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11387] [INFO] Starting gunicorn 20.1.0
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11387] [INFO] Listening at: http://127.0.0.1:8000 (11387)
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11387] [INFO] Using worker: gthread
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11393] [INFO] Booting worker with pid: 11393
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11393] [ERROR] Exception in worker process
+Sep 23 20:05:41 ip-172-31-15-79 web: Traceback (most recent call last):
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/arbiter.py", line 589, in spawn_worker
+Sep 23 20:05:41 ip-172-31-15-79 web: worker.init_process()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 92, in init_process
+Sep 23 20:05:41 ip-172-31-15-79 web: super().init_process()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 134, in init_process
+Sep 23 20:05:41 ip-172-31-15-79 web: self.load_wsgi()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+Sep 23 20:05:41 ip-172-31-15-79 web: self.wsgi = self.app.wsgi()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/base.py", line 67, in wsgi
+Sep 23 20:05:41 ip-172-31-15-79 web: self.callable = self.load()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+Sep 23 20:05:41 ip-172-31-15-79 web: return self.load_wsgiapp()
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+Sep 23 20:05:41 ip-172-31-15-79 web: return util.import_app(self.app_uri)
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/util.py", line 359, in import_app
+Sep 23 20:05:41 ip-172-31-15-79 web: mod = importlib.import_module(module)
+Sep 23 20:05:41 ip-172-31-15-79 web: File "/usr/lib64/python3.8/importlib/__init__.py", line 127, in import_module
+Sep 23 20:05:41 ip-172-31-15-79 web: return _bootstrap._gcd_import(name[level:], package, level)
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+Sep 23 20:05:41 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+Sep 23 20:05:41 ip-172-31-15-79 web: ModuleNotFoundError: No module named 'application'
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11393] [INFO] Worker exiting (pid: 11393)
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11387] [INFO] Shutting down: Master
+Sep 23 20:05:41 ip-172-31-15-79 web: [2021-09-23 20:05:41 +0000] [11387] [INFO] Reason: Worker failed to boot.
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11401] [INFO] Starting gunicorn 20.1.0
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11401] [INFO] Listening at: http://127.0.0.1:8000 (11401)
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11401] [INFO] Using worker: gthread
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11407] [INFO] Booting worker with pid: 11407
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11407] [ERROR] Exception in worker process
+Sep 23 20:05:42 ip-172-31-15-79 web: Traceback (most recent call last):
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/arbiter.py", line 589, in spawn_worker
+Sep 23 20:05:42 ip-172-31-15-79 web: worker.init_process()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 92, in init_process
+Sep 23 20:05:42 ip-172-31-15-79 web: super().init_process()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 134, in init_process
+Sep 23 20:05:42 ip-172-31-15-79 web: self.load_wsgi()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+Sep 23 20:05:42 ip-172-31-15-79 web: self.wsgi = self.app.wsgi()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/base.py", line 67, in wsgi
+Sep 23 20:05:42 ip-172-31-15-79 web: self.callable = self.load()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+Sep 23 20:05:42 ip-172-31-15-79 web: return self.load_wsgiapp()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+Sep 23 20:05:42 ip-172-31-15-79 web: return util.import_app(self.app_uri)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/util.py", line 359, in import_app
+Sep 23 20:05:42 ip-172-31-15-79 web: mod = importlib.import_module(module)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/usr/lib64/python3.8/importlib/__init__.py", line 127, in import_module
+Sep 23 20:05:42 ip-172-31-15-79 web: return _bootstrap._gcd_import(name[level:], package, level)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+Sep 23 20:05:42 ip-172-31-15-79 web: ModuleNotFoundError: No module named 'application'
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11407] [INFO] Worker exiting (pid: 11407)
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11401] [INFO] Shutting down: Master
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11401] [INFO] Reason: Worker failed to boot.
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11415] [INFO] Starting gunicorn 20.1.0
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11415] [INFO] Listening at: http://127.0.0.1:8000 (11415)
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11415] [INFO] Using worker: gthread
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11421] [INFO] Booting worker with pid: 11421
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11421] [ERROR] Exception in worker process
+Sep 23 20:05:42 ip-172-31-15-79 web: Traceback (most recent call last):
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/arbiter.py", line 589, in spawn_worker
+Sep 23 20:05:42 ip-172-31-15-79 web: worker.init_process()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/gthread.py", line 92, in init_process
+Sep 23 20:05:42 ip-172-31-15-79 web: super().init_process()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 134, in init_process
+Sep 23 20:05:42 ip-172-31-15-79 web: self.load_wsgi()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/workers/base.py", line 146, in load_wsgi
+Sep 23 20:05:42 ip-172-31-15-79 web: self.wsgi = self.app.wsgi()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/base.py", line 67, in wsgi
+Sep 23 20:05:42 ip-172-31-15-79 web: self.callable = self.load()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 58, in load
+Sep 23 20:05:42 ip-172-31-15-79 web: return self.load_wsgiapp()
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/app/wsgiapp.py", line 48, in load_wsgiapp
+Sep 23 20:05:42 ip-172-31-15-79 web: return util.import_app(self.app_uri)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/var/app/venv/staging-LQM1lest/lib/python3.8/site-packages/gunicorn/util.py", line 359, in import_app
+Sep 23 20:05:42 ip-172-31-15-79 web: mod = importlib.import_module(module)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "/usr/lib64/python3.8/importlib/__init__.py", line 127, in import_module
+Sep 23 20:05:42 ip-172-31-15-79 web: return _bootstrap._gcd_import(name[level:], package, level)
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 1014, in _gcd_import
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 991, in _find_and_load
+Sep 23 20:05:42 ip-172-31-15-79 web: File "<frozen importlib._bootstrap>", line 973, in _find_and_load_unlocked
+Sep 23 20:05:42 ip-172-31-15-79 web: ModuleNotFoundError: No module named 'application'
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11421] [INFO] Worker exiting (pid: 11421)
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11415] [INFO] Shutting down: Master
+Sep 23 20:05:42 ip-172-31-15-79 web: [2021-09-23 20:05:42 +0000] [11415] [INFO] Reason: Worker failed to boot.
+
+
+----------------------------------------
+/var/log/nginx/access.log
+----------------------------------------
+172.31.5.127 - - [23/Sep/2021:18:27:05 +0000] "GET /boaform/admin/formLogin?username=user&psd=user HTTP/1.1" 502 157 "-" "-" "182.56.201.230"
+172.31.35.164 - - [23/Sep/2021:18:34:45 +0000] "GET / HTTP/1.1" 502 157 "-" "-" "81.242.129.224"
+172.31.35.164 - - [23/Sep/2021:18:35:19 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:18:35:19 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:18:45:25 +0000] "GET / HTTP/1.1" 502 157 "-" "-" "170.84.158.6"
+172.31.35.164 - - [23/Sep/2021:18:49:12 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:18:49:12 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:05:55 +0000] "GET / HTTP/1.1" 502 157 "-" "Linux Gnu (cow)" "107.189.14.98"
+172.31.35.164 - - [23/Sep/2021:19:09:40 +0000] "GET /.env HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" "62.210.188.102"
+172.31.35.164 - - [23/Sep/2021:19:09:41 +0000] "POST / HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" "62.210.188.102"
+172.31.6.54 - - [23/Sep/2021:19:12:07 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:12:07 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:19:18:58 +0000] "GET /.env HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" "124.158.184.197"
+172.31.35.164 - - [23/Sep/2021:19:18:58 +0000] "POST / HTTP/1.1" 502 157 "-" "Mozilla/5.0 (Linux; U; Android 4.4.2; en-US; HM NOTE 1W Build/KOT49H) AppleWebKit/534.30 (KHTML, like Gecko) Version/4.0 UCBrowser/11.0.5.850 U3/0.8.0 Mobile Safari/534.30" "124.158.184.197"
+172.31.35.164 - - [23/Sep/2021:19:20:49 +0000] "GET / HTTP/1.1" 502 157 "-" "-" "181.225.141.146"
+172.31.35.164 - - [23/Sep/2021:19:38:50 +0000] "POST / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "3.21.40.163"
+172.31.35.164 - - [23/Sep/2021:19:38:51 +0000] "GET /.env HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "3.21.40.163"
+172.31.35.164 - - [23/Sep/2021:19:42:04 +0000] "GET / HTTP/1.1" 502 157 "-" "Mozilla/5.0 (compatible; Nimbostratus-Bot/v1.3.2; http://cloudsystemnetworks.com)" "209.17.96.210"
+172.31.6.54 - - [23/Sep/2021:19:53:10 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:53:10 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:53:11 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:53:11 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:53:12 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:19:53:12 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:19:58:57 +0000] "POST / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "135.125.244.48"
+172.31.35.164 - - [23/Sep/2021:19:58:58 +0000] "GET /.env HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "135.125.244.48"
+172.31.6.54 - - [23/Sep/2021:20:00:26 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:26 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:27 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:27 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:28 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:29 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:29 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:29 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:00:29 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.35.164 - - [23/Sep/2021:20:05:31 +0000] "GET /.env HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "143.198.18.179"
+172.31.35.164 - - [23/Sep/2021:20:05:31 +0000] "POST / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.129 Safari/537.36" "143.198.18.179"
+172.31.6.54 - - [23/Sep/2021:20:05:53 +0000] "POST /boaform/admin/formLogin HTTP/1.1" 502 157 "http://18.229.66.253:80/admin/login.asp" "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:71.0) Gecko/20100101 Firefox/71.0" "209.141.43.209"
+172.31.6.54 - - [23/Sep/2021:20:07:16 +0000] "GET / HTTP/1.1" 502 559 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+172.31.6.54 - - [23/Sep/2021:20:07:16 +0000] "GET /favicon.ico HTTP/1.1" 502 559 "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 Safari/537.36" "177.142.87.161"
+
+
+----------------------------------------
+/var/log/nginx/error.log
+----------------------------------------
+2021/09/23 18:27:05 [error] 3521#3521: *4 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.5.127, server: , request: "GET /boaform/admin/formLogin?username=user&psd=user HTTP/1.1", upstream: "http://127.0.0.1:8000/boaform/admin/formLogin?username=user&psd=user", host: "172.31.5.127"
+2021/09/23 18:34:45 [error] 4087#4087: *22 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 18:35:19 [error] 4087#4087: *22 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 18:35:19 [error] 4087#4087: *22 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 18:45:25 [error] 4087#4087: *273 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "172.31.35.164"
+2021/09/23 18:49:12 [error] 5413#5413: *45 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 18:49:12 [error] 5413#5413: *45 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 19:05:55 [error] 6017#6017: *141 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "18.229.66.253"
+2021/09/23 19:09:40 [error] 6017#6017: *201 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /.env HTTP/1.1", upstream: "http://127.0.0.1:8000/.env", host: "54.207.205.203"
+2021/09/23 19:09:41 [error] 6017#6017: *201 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 19:12:07 [error] 6692#6692: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 19:12:07 [error] 6692#6692: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 19:18:58 [error] 6692#6692: *106 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /.env HTTP/1.1", upstream: "http://127.0.0.1:8000/.env", host: "54.207.205.203"
+2021/09/23 19:18:58 [error] 6692#6692: *106 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 19:20:49 [error] 6692#6692: *136 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "172.31.35.164"
+2021/09/23 19:38:50 [error] 6692#6692: *405 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 19:38:51 [error] 6692#6692: *405 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /.env HTTP/1.1", upstream: "http://127.0.0.1:8000/.env", host: "54.207.205.203"
+2021/09/23 19:42:04 [error] 6692#6692: *454 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "172.31.35.164"
+2021/09/23 19:53:10 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 19:53:10 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 19:53:11 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 19:53:11 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 19:53:12 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 19:53:12 [error] 10200#10200: *1 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 19:58:57 [error] 10685#10685: *59 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 19:58:58 [error] 10685#10685: *59 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /.env HTTP/1.1", upstream: "http://127.0.0.1:8000/.env", host: "54.207.205.203"
+2021/09/23 20:00:26 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:26 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:27 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:27 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:28 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:29 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:29 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:00:29 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:00:29 [error] 10685#10685: *77 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+2021/09/23 20:05:31 [error] 10685#10685: *184 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "GET /.env HTTP/1.1", upstream: "http://127.0.0.1:8000/.env", host: "54.207.205.203"
+2021/09/23 20:05:31 [error] 10685#10685: *184 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.35.164, server: , request: "POST / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "54.207.205.203"
+2021/09/23 20:05:53 [error] 11336#11336: *2 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "POST /boaform/admin/formLogin HTTP/1.1", upstream: "http://127.0.0.1:8000/boaform/admin/formLogin", host: "18.229.66.253", referrer: "http://18.229.66.253:80/admin/login.asp"
+2021/09/23 20:07:16 [error] 11336#11336: *23 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET / HTTP/1.1", upstream: "http://127.0.0.1:8000/", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com"
+2021/09/23 20:07:16 [error] 11336#11336: *23 connect() failed (111: Connection refused) while connecting to upstream, client: 172.31.6.54, server: , request: "GET /favicon.ico HTTP/1.1", upstream: "http://127.0.0.1:8000/favicon.ico", host: "c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com", referrer: "http://c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com/"
+
+

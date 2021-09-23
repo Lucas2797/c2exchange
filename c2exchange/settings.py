@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-0(ixr13=lx^9(@29f2g**4=p+(6z@-9mdyy4y8!o!bj)10uje(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['wise-fox-36.loca.lt', '127.0.0.1', '1d81892dc1b4.ngrok.io', '192.168.0.25', '192.168.56.101']
+ALLOWED_HOSTS = ['wise-fox-36.loca.lt', '127.0.0.1', '1d81892dc1b4.ngrok.io', '192.168.0.25', '192.168.56.101', 'c2exchange.eba-kabm7vut.sa-east-1.elasticbeanstalk.com']
 
 
 # Application definition
